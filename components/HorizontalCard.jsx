@@ -9,15 +9,13 @@ const HorizontalCard = (props) => {
     setShowMore(!showMore);
   };
 
-  const description = `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque, magnam voluptatem, modi dignissimos incidunt omnis, eveniet impedit suscipit ut aliquid enim quaerat cumque repudiandae nisi!`;
-
   return (
     <View style={styles.Main}>
       <Image source={{ uri: props.url }} style={{ width: 100, height: 120, marginLeft: 10 }} />
       <View style={styles.textPlant}>
-        <Text style={styles.title}>Tulshi</Text>
+        <Text style={styles.title}>{props.nameOfProduct}</Text>
         <Text style={styles.desc}>
-         { description.slice(0, 80)}. {/* Display only the first 3 lines */}
+         {props.desc.slice(0,80)}. {/* Display only the first 3 lines */}
          
         </Text>
         <TouchableOpacity style={{display:'flex',flexDirection:'row',marginLeft:50,marginTop:5}}>

@@ -1,12 +1,34 @@
 import { FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Bnavigation from '../Layouts/Bnavigation'
 import HorizontalCard from '../components/HorizontalCard'
 import CategoryButton from '../components/CategoryButton'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ProductCard from '../components/ProductCard'
-
+import { useWhishList } from '../StateMangement/WhistlistManagement'
+import WhistList from './WhistList'
 const Home = ({navigation}) => {
+   const[data,setData] = useState([]);
+   const { wishlist, setWishlist } = useWhishList();
+   useEffect(() => {
+    // Fetch data from your endpoint
+    fetch('https://lazy-jade-fawn-wrap.cyclic.app/getAllProducts')
+      .then((response) => response.json())
+      .then((responseData) => {
+        // Update the data state with the fetched data
+        setData(responseData);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+  const handleAddToWishlist = (product) => {
+    // Add or remove the product from the wishlist
+    const updatedWishlist = wishlist.includes(product)
+      ? wishlist.filter((item) => item !== product)
+      : [...wishlist, product];
+    setWishlist(updatedWishlist);
+  };
     const[searchInput,setSearchInput] = useState("");
     function handleTextChange(e) {
         setSearchInput(e);
@@ -16,11 +38,16 @@ const Home = ({navigation}) => {
     <ScrollView>
     <View style={styles.body}>
         
-     <ScrollView horizontal style={styles.scrollBar}>
-        <HorizontalCard url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUhoW3Lue5lNqjFf_DeaMEWBMGL6aAhOhIDT7FMPrO44OBkiz6fncxTfVDBqxOquzinqI&usqp=CAU"/>
-        <HorizontalCard /> 
-         <HorizontalCard />
-     </ScrollView>
+    <ScrollView horizontal style={styles.scrollBar}>
+  {data.slice(0, 4).map((product, index) => (
+    <HorizontalCard
+      key={index}
+      url={`data:image/jpeg;base64,${product.Images[0].imgdata}`}
+      nameOfProduct={product.NameOfProdut}
+      desc={product.Description}
+    />
+  ))}
+</ScrollView>
 
      {/* Search Bar */}
      <View style={styles.searchView}>
@@ -59,15 +86,19 @@ const Home = ({navigation}) => {
 
         </View>
        {/* Trending product cards  */}
-       <FlatList style={styles.cardContainer} number>
-            <ProductCard 
-            url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUhoW3Lue5lNqjFf_DeaMEWBMGL6aAhOhIDT7FMPrO44OBkiz6fncxTfVDBqxOquzinqI&usqp=CAU" 
-            nameOfProduct="Tulsi"
-            />
-            <ProductCard url="https://your-second-image-url-here.com" />
-            <ProductCard url="https://your-second-image-url-here.com" />
-            <ProductCard url="https://your-second-image-url-here.com" />
-</FlatList>
+       <ScrollView style={{ marginTop: 10 }}>
+  <View style={styles.CardWrap}>
+    {data.map((product, index) => (
+      <ProductCard 
+        key={index}
+        url={`data:image/jpeg;base64,${product.Images[0].imgdata}`}        nameOfProduct={product.NameOfProdut}
+        price={product.Price}
+        onAddToWishlist={() => handleAddToWishlist(product)}
+      />
+    ))}
+  </View>
+</ScrollView>
+
     </View>
     </ScrollView>
     <Bnavigation navigation={navigation} />
@@ -129,6 +160,13 @@ const styles = StyleSheet.create({
         alignItems: 'center', // Center items vertically
         marginTop: 10,
         marginLeft: 10,
+      },
+      CardWrap: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        marginBottom: 30,
+        marginHorizontal: 10,
       },
       
 })

@@ -6,11 +6,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WhistList from './screens/WhistList';
 import Cart from './screens/Cart';
 import Profile from './screens/Profile';
-
+import { WhistlistManagement } from './StateMangement/WhistlistManagement';
+import React, { useCallback, useEffect, useState } from 'react';
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
    <NavigationProvider>  
+    <WhistlistManagement>
     <NavigationContainer>  
       <Stack.Navigator screenOptions={{
             animation: 'none',
@@ -27,6 +29,7 @@ export default function App() {
    
       </Stack.Navigator>
       </NavigationContainer>
+      </WhistlistManagement>
       </NavigationProvider>
 
   );

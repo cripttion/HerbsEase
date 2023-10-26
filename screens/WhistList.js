@@ -1,15 +1,32 @@
-import { StyleSheet, Text, View ,SafeAreaView} from 'react-native'
+import { TouchableOpacity,Image,StyleSheet, Text, View ,SafeAreaView,ScrollView} from 'react-native'
 import React from 'react'
 import Bnavigation from '../Layouts/Bnavigation'
-
+import { useWhishList } from '../StateMangement/WhistlistManagement'
 const WhistList = ({navigation}) => {
+  const { wishlist, setWishlist } = useWhishList();
   return (
     <SafeAreaView style={styles.container}>
-    <View style={styles.body}>
-    <Text>This is Like Screen</Text>
-    </View>
+    <ScrollView>
+      <View style={styles.body}>
+        <Text style={{marginTop:10,fontSize:20,fontWeight:'bold'}}>WE ❤️ IF YOU BUY</Text>
+        {wishlist.map((product, index) => (
+          <View key={index} style={styles.wCard}>
+          <Image source={{ uri: `data:image/jpeg;base64,${product.Images[0].imgdata}` }} style={{ width: 100, height: 100, marginLeft: 10 }} />
+            <View style={{flex:1}}>
+            <Text style={{fontWeight:'bold',fontSize:20}}>{product.NameOfProdut}</Text>
+            <Text style={{fontWeight:'bold',fontSize:18}}> ₹ {product.Price}</Text>
+            <View style={styles.addCart}>
+          <TouchableOpacity >
+            <Text style={{color:'white'}}>Add to cart</Text>
+             </TouchableOpacity>
+        </View>
+            </View>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
     <Bnavigation navigation={navigation} />
-    </SafeAreaView>
+  </SafeAreaView>
   )
 }
 
@@ -19,11 +36,32 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         marginTop:30,
-     justifyContent:'center',
+        backgroundColor:'#D3D3D3',
     
     },
     body:{
         flex:1,
-        alignItems:'center',
+      alignItems:'center'
+    },
+    wCard:{
+      flex:1,
+      flexDirection:'row',
+      backgroundColor:'#D3D3D3',
+      backgroundColor:'white',
+      width:'95%',
+      height:120,
+      padding:10,
+      borderRadius:20,
+      marginTop:10,
+      gap:20,
+   
+    },
+    addCart:{
+      backgroundColor:'green',
+      padding:5,
+      marginTop:10,
+      borderRadius:20,
+      alignItems:'center'
+
     }
 })
