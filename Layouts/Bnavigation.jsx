@@ -18,9 +18,9 @@ const Bnavigation = ({navigation}) => {
         }}
         >
           <Ionicons
-            name="home"
+            name="home-outline"
             size={22}
-            color={activePage==='Home' ? 'orange' : 'white'}
+            color={activePage==='Home' ? '#649749' : 'black'}
           />
           <Text style={styles.NavText}>Home</Text>
         </TouchableOpacity>
@@ -33,9 +33,9 @@ const Bnavigation = ({navigation}) => {
         }
         >
           <Ionicons
-            name="heart"
+            name="heart-outline"
             size={22}
-            color={activePage==='Likes'? 'orange' : 'white'}
+            color={activePage==='Likes'? '#649749' : 'black'}
           />
           <Text style={styles.NavText}>Likes</Text>
         </TouchableOpacity>
@@ -46,9 +46,9 @@ const Bnavigation = ({navigation}) => {
           navigation.navigate('Cart')}}
         >
           <Ionicons
-            name="cart"
+            name="cart-outline"
             size={22}
-            color={activePage==='Cart' ? 'orange' : 'white'}
+            color={activePage==='Cart' ? '#649749' : 'black'}
           />
           <Text style={styles.NavText}>Cart</Text>
         </TouchableOpacity>
@@ -61,9 +61,9 @@ const Bnavigation = ({navigation}) => {
         }}
         >
           <Ionicons
-            name="person"
+            name="person-outline"
             size={22}
-            color={activePage==='Profile' ? 'orange' : 'white'}
+            color={activePage==='Profile' ? '#649749' : 'black'}
           />
           <Text style={styles.NavText}>Profile</Text>
         </TouchableOpacity>
@@ -74,7 +74,7 @@ const Bnavigation = ({navigation}) => {
 
 const styles = StyleSheet.create({
   NavMain: {
-    backgroundColor: 'green',
+    backgroundColor: 'white',
     height: 60,
   },
   NavItems: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   NavText: {
-    color: 'white',
+    color: 'black',
   },
   NavButton: {
     alignItems: 'center', // Center items horizontally

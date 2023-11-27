@@ -6,10 +6,11 @@ import CategoryButton from '../components/CategoryButton'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ProductCard from '../components/ProductCard'
 import { useWhishList } from '../StateMangement/WhistlistManagement'
-import WhistList from './WhistList'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Home = ({navigation}) => {
    const[data,setData] = useState([]);
    const { wishlist, setWishlist } = useWhishList();
+  
    useEffect(() => {
     // Fetch data from your endpoint
     fetch('https://lazy-jade-fawn-wrap.cyclic.app/getAllProducts')
@@ -29,6 +30,20 @@ const Home = ({navigation}) => {
       : [...wishlist, product];
     setWishlist(updatedWishlist);
   };
+  const handleAddToCart =async(product)=>{
+    try {
+      const existingItem = await AsyncStorage.getItem("cartData");
+      let parseData = existingItem ? JSON.parse(existingItem) : [];
+  
+      // Add the new item to the array
+      parseData = [...parseData, product];
+  
+      const updatedData = JSON.stringify(parseData);
+      await AsyncStorage.setItem("cartData", updatedData);
+    } catch (e) {
+      console.log("Error while adding data to cart", e);
+    }
+  }
     const[searchInput,setSearchInput] = useState("");
     function handleTextChange(e) {
         setSearchInput(e);
@@ -60,7 +75,7 @@ const Home = ({navigation}) => {
                 // numberOfLines={10}
                 placeholderTextColor="gray"
                 />
-                <TouchableOpacity style={{padding:10, backgroundColor:'green',borderRadius:20,}}><Text style={{color:'white'}}>Serach</Text></TouchableOpacity>
+                <TouchableOpacity style={{padding:10, backgroundColor:'#649749',borderRadius:20,}}><Text style={{color:'white'}}>Serach</Text></TouchableOpacity>
         </View>
 
         {/* Category of plant section */}
@@ -81,7 +96,7 @@ const Home = ({navigation}) => {
             <Ionicons
             name="trending-up-outline"
             size={24}
-            color='green'
+            color='#649749'
           />
 
         </View>
@@ -94,7 +109,8 @@ const Home = ({navigation}) => {
         url={`data:image/jpeg;base64,${product.Images[0].imgdata}`}        nameOfProduct={product.NameOfProdut}
         price={product.Price}
         onAddToWishlist={() => handleAddToWishlist(product)}
-      />
+        onAddToCart ={()=>handleAddToCart(product)}
+        />
     ))}
   </View>
 </ScrollView>
@@ -112,9 +128,9 @@ export default Home
 const styles = StyleSheet.create({
     container:{
         flex:1,
-      backgroundColor:'#D3D3D3',
+      backgroundColor:'#FAFAFA',
      
-     marginTop:30,
+     
     
     },
     body:{
@@ -150,7 +166,7 @@ const styles = StyleSheet.create({
     underline: {
         marginTop:2,
         borderBottomWidth: 1, // Adjust the thickness of the underline as needed
-        borderColor: 'green',
+        borderColor: '#649749',
         width:'70%' // Change the color of the underline as needed
       },
       cardContainer: {

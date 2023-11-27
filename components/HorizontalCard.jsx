@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     gap: 30,
     borderRadius: 20,
     marginRight: 5,
+    elevation:2,
   },
   textPlant: {
     flex: 1,

@@ -13,7 +13,7 @@ export default CategoryButton
 
 const styles = StyleSheet.create({
  mains:{
-    backgroundColor:'green',
+    backgroundColor:'#649749',
     padding:10,
     borderRadius:20,
     marginRight:5,

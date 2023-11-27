@@ -28,7 +28,7 @@ const ProductCard = (props) => {
         </View>
         {/* add to cart button */}
         <View style={styles.addCart}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>{props.onAddToCart()}}>
             <Text style={{color:'white'}}>Add to cart</Text>
              </TouchableOpacity>
         </View>
@@ -46,12 +46,13 @@ const styles = StyleSheet.create({
         borderRadius:20,
         marginTop:10,
         height:240,
-        padding:10
-     
+        padding:10,
+        elevation:2,
         
     },
     Image:{
-      alignItems:'center'
+      alignItems:'center',
+      
     },
     details:{
       alignItems:'center'
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
    gap:60
     },
     addCart:{
-      backgroundColor:'green',
+      backgroundColor:'#649749',
       padding:5,
       marginTop:10,
       borderRadius:20,
