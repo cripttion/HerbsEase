@@ -1,48 +1,40 @@
-import { StyleSheet, Text, View,SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, Text, View,SafeAreaView, ScrollView,Image,TouchableOpacity } from 'react-native'
 import React, { useState,useEffect } from 'react'
 import Bnavigation from '../Layouts/Bnavigation'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useWhishList } from '../StateMangement/WhistlistManagement'
 
 const Cart = ({navigation}) => {
-  const { cartList, setCartList } = useWhishList();
+  const { cartList} = useWhishList();
 
-  // const [storedData, setStoredData] = useState([]);
 
-  // // Step 2: Use the useEffect hook to retrieve and set the data when the component mounts
-  // useEffect(() => {
-  //   const retrieveData = async () => {
-  //     try {
-  //       const data = await AsyncStorage.getItem('cartData');
-  //       if (data !== null) {
-  //         // Data was found
-  //         // Step 3: Set the retrieved data in the component's state
-  //         setStoredData(JSON.parse(data));
-          
-  //       } else {
-  //         // No data found for the specified key
-  //         console.log('No data found for the key: yourKey');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error retrieving data from AsyncStorage:', error);
-  //     }
-  //   };
-
-  //   // Call the function to retrieve data when the component mounts
-  //   retrieveData();
-  // }, []); // The empty de
-  console.log(cartList);
   return (
     <SafeAreaView style={styles.container}>
     <View style={styles.body}>
      <ScrollView> 
-    <Text>Stored Data:</Text>
+    <View style={styles.heading}>
+            <Text style={{fontSize:30, fontWeight:'bold',color:'#649749'}}>My Cart</Text>
+        </View>
     {/* {Object.keys(storedData).map((key) => (
             <View key={key}>
               <Text>NameOfProduct: {storedData[key].NameOfProdut}</Text>
               <Text>Price: {storedData[key].Price}</Text>
             </View>
           ))} */}
+          {cartList.map((product, index) => (
+          <View key={index} style={styles.wCard}>
+          <Image source={{ uri: `data:image/jpeg;base64,${product.Images[0].imgdata}` }} style={{ width: 100, height: 100, marginLeft: 10 }} />
+            <View style={{flex:1}}>
+            <Text style={{fontWeight:'bold',fontSize:20}}>{product.NameOfProdut}</Text>
+            <Text style={{fontWeight:'bold',fontSize:18}}> ₹ {product.Price}</Text>
+            <View style={styles.addCart}>
+          <TouchableOpacity >
+            <Text style={{color:'white'}}>Add to cart</Text>
+             </TouchableOpacity>
+        </View>
+            </View>
+          </View>
+        ))}
 
       </ScrollView>
     </View>
@@ -56,11 +48,30 @@ export default Cart
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    margin:20,
+   
     backgroundColor:'#FAFAFA',
 
 },
 body:{
     flex:1,
-}
+},
+wCard:{
+  flex:1,
+  flexDirection:'row',
+  backgroundColor:'#D3D3D3',
+  backgroundColor:'white',
+  width:'95%',
+  height:120,
+  padding:10,
+  borderRadius:20,
+  marginTop:10,
+  gap:20,
+  elevation:2,
+},
+heading:{
+  marginTop:5,
+  padding:10,
+
+
+},
 })

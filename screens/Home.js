@@ -34,9 +34,7 @@ const Home = ({navigation}) => {
   };
   
   const handleAddToCart =(product)=>{
-    const updatedCart = cartList.includes(product)
-      ? cartList.filter((item) => item !== product)
-      : [...cartList, product];
+    const updatedCart = [...cartList, product];
     setCartList(updatedCart);
   }
     const[searchInput,setSearchInput] = useState("");

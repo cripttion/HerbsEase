@@ -2,9 +2,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '../StateMangement/NavigationProvider';
+import { useWhishList } from '../StateMangement/WhistlistManagement';
 const Bnavigation = ({navigation}) => {
   const { activePage, onPageChange } = useNavigation(); // Use the custom hook to access the context
- 
+  const { cartList} = useWhishList();
+
 
 
   return (
@@ -45,11 +47,14 @@ const Bnavigation = ({navigation}) => {
           onPress={() => {onPageChange('Cart') 
           navigation.navigate('Cart')}}
         >
-          <Ionicons
+          <View style={styles.cartStyle}>
+            <Ionicons
             name="cart-outline"
             size={22}
             color={activePage==='Cart' ? '#649749' : 'black'}
           />
+          <Text style={{color:'white',backgroundColor:'red',borderRadius:50,width:18,height:18,textAlign:'center'}}>{cartList.length}</Text>
+          </View>
           <Text style={styles.NavText}>Cart</Text>
         </TouchableOpacity>
 
@@ -91,6 +96,9 @@ const styles = StyleSheet.create({
   NavButton: {
     alignItems: 'center', // Center items horizontally
   },
+  cartStyle:{
+    flexDirection:'row'
+  }
 });
 
 export default Bnavigation;
