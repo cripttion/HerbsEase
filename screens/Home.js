@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator , SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View , Alert} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Bnavigation from '../Layouts/Bnavigation'
 import HorizontalCard from '../components/HorizontalCard'
@@ -6,14 +6,13 @@ import CategoryButton from '../components/CategoryButton'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ProductCard from '../components/ProductCard'
 import { useWhishList } from '../StateMangement/WhistlistManagement'
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { openDatabase } from 'react-native-sqlite-storage';
 const Home = ({navigation}) => {
    const[data,setData] = useState([]);
    const { wishlist, setWishlist ,cartList,setCartList} = useWhishList();
-   
+   const [isLoading, setIsLoading] = useState(true);
   
    useEffect(() => {
+    setIsLoading(true); // Set loading to true when starting to fetch data
     // Fetch data from your endpoint
     fetch('https://lazy-jade-fawn-wrap.cyclic.app/getAllProducts')
       .then((response) => response.json())
@@ -23,8 +22,19 @@ const Home = ({navigation}) => {
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
+      }).finally(() => {
+        setIsLoading(false); // Set loading to false when data fetching is completed
       });
   }, []);
+  const createTwoButtonAlert = (product) =>
+  Alert.alert('Hello there!', 'Will I add this to you Cart ?', [
+    {
+      text: 'No thanks',
+      onPress: () => console.log('Cancel Pressed'),
+      style: 'cancel',
+    },
+    {text: 'Yes', onPress: () => {handleAddToCart(product)}},
+  ]);
   const handleAddToWishlist = (product) => {
     // Add or remove the product from the wishlist
     const updatedWishlist = wishlist.includes(product)
@@ -36,13 +46,32 @@ const Home = ({navigation}) => {
   const handleAddToCart =(product)=>{
     const updatedCart = [...cartList, product];
     setCartList(updatedCart);
+    
+  }
+  const handleCardClick =(product)=>{
+    navigation.navigate('productDescription',{product});
   }
     const[searchInput,setSearchInput] = useState("");
     function handleTextChange(e) {
         setSearchInput(e);
     }
+    const [filteredData, setFilteredData] = useState(data);
+    const filterDataByCategory = (category) => {
+      const newData = category === 'All' ? data : data.filter(item => item.Category === category);
+      navigation.navigate('filteredProducts', { filteredData: newData });
+      // setFilteredData(newData);
+      // navigation.navigate('filteredProducts',{filteredData});
+    };
+ 
   return (
+    
     <SafeAreaView style={styles.container}>
+      {isLoading ? (
+      // Show loader if data is still loading
+      <ActivityIndicator size="large" color="#649749" style={{ flex:1,alignItems:'center' }} />
+    ) : (
+      // Render content when data loading is completed
+      <>
     <ScrollView>
     <View style={styles.body}>
         
@@ -53,6 +82,7 @@ const Home = ({navigation}) => {
       url={`data:image/jpeg;base64,${product.Images[0].imgdata}`}
       nameOfProduct={product.NameOfProdut}
       desc={product.Description}
+      onViewMore ={()=>handleCardClick(product)}
     />
   ))}
 </ScrollView>
@@ -73,12 +103,12 @@ const Home = ({navigation}) => {
 
         {/* Category of plant section */}
         <ScrollView horizontal style={{marginTop:15,marginLeft:10}}> 
-            <CategoryButton text="All"/>
-            <CategoryButton text="Medical Plant"/>
-            <CategoryButton text="Vegetables"/>
-            <CategoryButton text="Fruits"/> 
-            <CategoryButton text="Herbs"/>  
-            <CategoryButton text="Medicines"/>         
+            <CategoryButton text="All" onProductfilter={() => filterDataByCategory('All')}/>
+            <CategoryButton text="Medical Plant" onProductfilter={() => filterDataByCategory('Medical Plant')}/>
+            <CategoryButton text="Vegetables" onProductfilter={() => filterDataByCategory('Vegetables')}/>
+            <CategoryButton text="Fruits" onProductfilter={() => filterDataByCategory('Fruits')}/> 
+            <CategoryButton text="Herbs" onProductfilter={() => filterDataByCategory('Herbs')}/>  
+            <CategoryButton text="Medicines" onProductfilter={() => filterDataByCategory('Medicines')}/>         
          </ScrollView>
  {/* Trending product heading  */}
         <View style={{marginTop:10,marginLeft:10,flex:1,flexDirection:'row',gap:10,}}>
@@ -103,7 +133,8 @@ const Home = ({navigation}) => {
         url={`data:image/jpeg;base64,${product.Images[0].imgdata}`}        nameOfProduct={product.NameOfProdut}
         price={product.Price}
         onAddToWishlist={() => handleAddToWishlist(product)}
-        onAddToCart ={()=>handleAddToCart(product)}
+        onAddToCart ={()=>createTwoButtonAlert(product)}
+        onCardClick = {()=>handleCardClick(product)}
         />
     ))}
   </View>
@@ -111,6 +142,8 @@ const Home = ({navigation}) => {
 
     </View>
     </ScrollView>
+    </>
+        )}
     <Bnavigation navigation={navigation} />
     </SafeAreaView>
     

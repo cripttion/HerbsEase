@@ -3,7 +3,7 @@ import React from 'react'
 
 const CategoryButton = (props) => {
   return (
-    <TouchableOpacity style={styles.mains}>
+    <TouchableOpacity style={styles.mains}  onPress={()=>{props.onProductfilter()}}>
       <Text style={styles.text}>{props.text}</Text>
     </TouchableOpacity>
   )

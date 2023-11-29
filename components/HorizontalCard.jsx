@@ -18,7 +18,7 @@ const HorizontalCard = (props) => {
          {props.desc.slice(0,80)}. {/* Display only the first 3 lines */}
          
         </Text>
-        <TouchableOpacity style={{display:'flex',flexDirection:'row',marginLeft:50,marginTop:5}}>
+        <TouchableOpacity style={{display:'flex',flexDirection:'row',marginLeft:50,marginTop:5}} onPress={()=>props.onViewMore()}>
             <Text style={{color:'blue',fontWeight:'bold'}}>ViewMore</Text>
         <Ionicons
             name="arrow-forward"

@@ -4,12 +4,12 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const ProductCard = (props) => {
   const [isLiked, setIsLiked] = useState(false);
-
+  
   const toggleLike = () => {
     setIsLiked(!isLiked);
   };
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={()=>{props.onCardClick()}}>
     <View style={styles.main}>
       <View style={styles.Image}>
            <Image source={{ uri: props.url }} style={{ width: 100, height: 120}} />
@@ -28,12 +28,13 @@ const ProductCard = (props) => {
           /></TouchableOpacity>
         </View>
         {/* add to cart button */}
+        <TouchableOpacity onPress={()=>{props.onAddToCart()}}>
         <View style={styles.addCart}>
-          <TouchableOpacity onPress={()=>{props.onAddToCart()}}>
+         
             <Text style={{color:'white'}}>Add to cart</Text>
-             </TouchableOpacity>
+           
         </View>
-     
+        </TouchableOpacity>
     </View>
     </TouchableOpacity>
   )

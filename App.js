@@ -8,6 +8,8 @@ import Cart from './screens/Cart';
 import Profile from './screens/Profile';
 import { WhistlistManagement } from './StateMangement/WhistlistManagement';
 import React, { useCallback, useEffect, useState } from 'react';
+import ProductDescription from './screens/ProductDescription';
+import FilteredProduct from './screens/FilteredProduct';
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
@@ -25,8 +27,8 @@ export default function App() {
            />
       <Stack.Screen name='Cart' component={Cart}  />
       <Stack.Screen name='Profile' component={Profile} />
-
-   
+      <Stack.Screen name ='productDescription' component={ProductDescription} />
+    <Stack.Screen name ='filteredProducts' component={FilteredProduct} />
       </Stack.Navigator>
       </NavigationContainer>
       </WhistlistManagement>
