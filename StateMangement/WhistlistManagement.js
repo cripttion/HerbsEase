@@ -5,12 +5,14 @@ const WhistListContext = createContext();
 
 // Create a context provider component
 export function WhistlistManagement({ children }) {
-    const [wishlist, setWishlist] = useState([]);        
+    const [wishlist, setWishlist] = useState([]);  
+    const [cartList, setCartList] = useState([]);        
+      
 
 
 
   return (
-    <WhistListContext.Provider value={{ wishlist,setWishlist }}>
+    <WhistListContext.Provider value={{ wishlist,setWishlist,cartList,setCartList }}>
       {children}
     </WhistListContext.Provider>
   );

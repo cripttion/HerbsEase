@@ -7,9 +7,11 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import ProductCard from '../components/ProductCard'
 import { useWhishList } from '../StateMangement/WhistlistManagement'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { openDatabase } from 'react-native-sqlite-storage';
 const Home = ({navigation}) => {
    const[data,setData] = useState([]);
-   const { wishlist, setWishlist } = useWhishList();
+   const { wishlist, setWishlist ,cartList,setCartList} = useWhishList();
+   
   
    useEffect(() => {
     // Fetch data from your endpoint
@@ -30,19 +32,12 @@ const Home = ({navigation}) => {
       : [...wishlist, product];
     setWishlist(updatedWishlist);
   };
-  const handleAddToCart =async(product)=>{
-    try {
-      const existingItem = await AsyncStorage.getItem("cartData");
-      let parseData = existingItem ? JSON.parse(existingItem) : [];
   
-      // Add the new item to the array
-      parseData = [...parseData, product];
-  
-      const updatedData = JSON.stringify(parseData);
-      await AsyncStorage.setItem("cartData", updatedData);
-    } catch (e) {
-      console.log("Error while adding data to cart", e);
-    }
+  const handleAddToCart =(product)=>{
+    const updatedCart = cartList.includes(product)
+      ? cartList.filter((item) => item !== product)
+      : [...cartList, product];
+    setCartList(updatedCart);
   }
     const[searchInput,setSearchInput] = useState("");
     function handleTextChange(e) {
@@ -104,6 +99,7 @@ const Home = ({navigation}) => {
        <ScrollView style={{ marginTop: 10 }}>
   <View style={styles.CardWrap}>
     {data.map((product, index) => (
+      
       <ProductCard 
         key={index}
         url={`data:image/jpeg;base64,${product.Images[0].imgdata}`}        nameOfProduct={product.NameOfProdut}

@@ -8,6 +8,9 @@ const WhistList = ({navigation}) => {
     <SafeAreaView style={styles.container}>
     <ScrollView>
       <View style={styles.body}>
+      <View style={styles.heading}>
+            <Text style={{fontSize:30, fontWeight:'bold',color:'#649749'}}> WishList</Text>
+        </View>
         {wishlist.map((product, index) => (
           <View key={index} style={styles.wCard}>
           <Image source={{ uri: `data:image/jpeg;base64,${product.Images[0].imgdata}` }} style={{ width: 100, height: 100, marginLeft: 10 }} />
@@ -38,9 +41,14 @@ const styles = StyleSheet.create({
         backgroundColor:'#FAFAFA',
     
     },
+    heading:{
+      marginTop:5,
+      padding:10,
+
+
+  },
     body:{
         flex:1,
-      alignItems:'center'
     },
     wCard:{
       flex:1,

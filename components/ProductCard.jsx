@@ -9,6 +9,7 @@ const ProductCard = (props) => {
     setIsLiked(!isLiked);
   };
   return (
+    <TouchableOpacity>
     <View style={styles.main}>
       <View style={styles.Image}>
            <Image source={{ uri: props.url }} style={{ width: 100, height: 120}} />
@@ -34,6 +35,7 @@ const ProductCard = (props) => {
         </View>
      
     </View>
+    </TouchableOpacity>
   )
 }
 
@@ -42,12 +44,13 @@ export default ProductCard
 const styles = StyleSheet.create({
     main:{
         backgroundColor:'white',
-        width: '48%',
+        
         borderRadius:20,
         marginTop:10,
         height:240,
         padding:10,
-        elevation:2,
+        borderColor:'black',
+        borderWidth:1,
         
     },
     Image:{
