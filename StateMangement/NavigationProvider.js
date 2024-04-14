@@ -5,7 +5,7 @@ const NavigationContext = createContext();
 
 // Create a context provider component
 export function NavigationProvider({ children }) {
-  const [activePage, setActivePage] = useState('Home');
+  const [activePage, setActivePage] = useState('Main');
 
   const handlePageChange = (pageName) => {
     setActivePage(pageName);
