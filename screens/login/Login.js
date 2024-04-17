@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Bnavigation from "../../Layouts/Bnavigation";
 import tw from "tailwind-react-native-classnames";
 import loginsvg from "./../../assets/man-holding-plant-pot.png";
 import { t } from 'react-native-tailwindcss';

@@ -12,7 +12,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import NetInfo from "@react-native-community/netinfo";
 
-const CategorySection = () => {
+const CategorySection = ({navigation}) => {
   const [active, setActive] = useState("All");
   const [data, setData] = useState([]);
   const [networkType, setNetworkType] = useState(""); // To store the network type
@@ -46,7 +46,7 @@ const CategorySection = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        "http://192.168.224.144:8000/v1/p/category"
+        "https://herbease.onrender.com/product/getCategories"
       );
       if (response && response.data) {
         setData(response.data);
@@ -77,12 +77,10 @@ const CategorySection = () => {
           showsHorizontalScrollIndicator={false}
           style={styles.category}
         >
-          {data &&
-            data.map((d,key) => (
-              <TouchableOpacity key={d.CategoryID} onPress={() => setActive(d.CategoryName)}>
+          <TouchableOpacity  onPress={() => setActive('All')}>
                 <LinearGradient
                   colors={
-                    active === d.CategoryName
+                    active === 'All'
                       ? ["#039551", "#039551"]
                       : ["#fff", "#fff"]
                   }
@@ -91,10 +89,31 @@ const CategorySection = () => {
                   <Text
                     style={[
                       styles.text,
-                      { color: active === d.CategoryName ? "#fff" : "#039551" },
+                      { color: active === 'All' ? "#fff" : "#039551" },
                     ]}
                   >
-                    {d.CategoryName}
+                    All
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+          {data &&
+            data.category.map((d,key) => (
+              <TouchableOpacity key={key} onPress={() => { navigation.navigate('SerachResults', { searchText:d }),setActive(d)}}>
+                <LinearGradient
+                  colors={
+                    active === d
+                      ? ["#039551", "#039551"]
+                      : ["#fff", "#fff"]
+                  }
+                  style={styles.button}
+                >
+                  <Text
+                    style={[
+                      styles.text,
+                      { color: active === d ? "#fff" : "#039551" },
+                    ]}
+                  >
+                    {d}
                   </Text>
                 </LinearGradient>
               </TouchableOpacity>

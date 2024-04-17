@@ -1,14 +1,16 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Bnavigation from '../Layouts/Bnavigation'
+import Cart from './Cart'
 
 const Main = ({navigation,children}) => {
   return (
     <SafeAreaView style={styles.main}>
-        <View style={styles.child}>
+       
+        <ScrollView vertical showsVerticalScrollIndicator={false} style={styles.child}>
 
             {children}
-        </View>
+        </ScrollView>
         <View style={styles.nav}>
 
 
@@ -25,5 +27,7 @@ const styles = StyleSheet.create({
       flex:1,
   
      justifyContent:"space-between"
-    }
+    },
+   
+    
 })
