@@ -6,6 +6,7 @@ import HorizontalCard from './components/HorizontalCard';
 
 const SearchedProduct = ({route,navigation}) => {
  const {searchText} = route.params;
+
  const[data,setData] = useState([]);
  const[loading,setLoading]=useState(false);
  useEffect(()=>{
@@ -26,7 +27,7 @@ const SearchedProduct = ({route,navigation}) => {
     getData();
  },[])
   return (
-    <Main>
+    <Main navigation={navigation}>
     <ScrollView showsVerticalScrollIndicator={false} vertical style={{marginHorizontal:0}}>
     <Text style={{fontWeight:'bold',fontSize:16,fontStyle:'italic',marginTop:5}}>search for:{searchText}/</Text>
       <ScrollView  vertical showsVerticalScrollIndicator={false} style={{marginTop:20}}>

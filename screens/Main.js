@@ -1,7 +1,7 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Bnavigation from '../Layouts/Bnavigation'
-import Cart from './Cart'
+
 
 const Main = ({navigation,children}) => {
   return (

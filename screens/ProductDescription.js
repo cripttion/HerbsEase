@@ -1,85 +1,140 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
-import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import React, { useState, useEffect } from "react";
 import AddCartButton from "./components/AddCartButton";
 import tulshiremove from "./../assets/tulshiremove.png";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import tulshiImage1 from "./../assets/tulshiImage1.jpeg";
+import { useWishlist } from "../StateMangement/WhistlistManagement";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProductDescription = ({ route, navigation }) => {
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const { productdata } = route.params;
+  const [wishData, setWishData] = useState([]);
   const [heart, setHeart] = useState(false);
   const heartPressed = () => {
-    setHeart(!heart);
+    if (heart) {
+      setHeart(false);
+      removeFromWishlist(productdata);
+    } else {
+      setHeart(true);
+      addToWishlist(productdata);
+    }
   };
-  const {productdata} = route.params;
-  
+  useEffect(() => {
+    const getData = async () => {
+      let data = await AsyncStorage.getItem("wishlist");
+      data = JSON.parse(data);
+      const existingProduct = data.find((item) => item._id === productdata._id);
+      if (existingProduct) {
+        setHeart(true);
+      }
+      setWishData(data);
+    };
+    getData();
+  }, []);
+
   const sharePressed = () => {};
   return (
     <>
-    <ScrollView style={styles.main}>
-      <View style={styles.section1}>
-        <View style={styles.patch}></View>
-        <View style={styles.heart}>
-          <TouchableOpacity onPress={heartPressed}>
-            <Ionicons
-              name={heart ? "heart" : "heart-outline"}
-              size={30}
-              color={heart ? "red" : "black"}
+      <ScrollView style={styles.main}>
+        <View style={styles.section1}>
+          <View style={styles.patch}></View>
+          <View style={styles.heart}>
+            <TouchableOpacity onPress={heartPressed}>
+              <Ionicons
+                name={heart ? "heart" : "heart-outline"}
+                size={30}
+                color={heart ? "red" : "black"}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={sharePressed}>
+              <Ionicons name="share-social-outline" size={30} color={"black"} />
+            </TouchableOpacity>
+          </View>
+
+          <View>
+            <Image
+              source={{
+                uri: `https://herbease.onrender.com/Element/${productdata.element.imagePaths[0].substring(
+                  16
+                )}`,
+              }}
+              onError={(e) => {
+                e.target.source = {uri: `data:image/jpeg;base64,${productdata.imagePaths[0].data}`},
+                e.target.width = 200,
+                e.target.height=200,
+                e.target.marginLeft=60
+                  
+                
+              }}
+              style={{
+                width: 350,
+                height: 350,
+                marginLeft: -60,
+                marginTop: -20,
+                overflow:'hidden',
+                zIndex: 1,
+              }}
             />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={sharePressed}>
-            <Ionicons name="share-social-outline" size={30} color={"black"} />
-          </TouchableOpacity>
+          </View>
         </View>
-         
-        <View>
-          <Image
-            source={tulshiremove}
+        <View style={styles.section2}>
+          <Text style={styles.brandText}>{productdata.name}</Text>
+          <Text
             style={{
-              width: 350,
-              height: 450,
-              marginLeft: -60,
-              marginTop: -20,
-              overflow: "visible",
-              zIndex: 10,
+              color: "gray",
+              marginHorizontal: 10,
+              marginTop: 40,
+              textAlign: "justify",
+              fontSize: 14,
             }}
-          />
+          >
+            {productdata.longDesc}
+          </Text>
+
+          <View style={{ marginHorizontal: 10 }}>
+            <Text
+              style={{
+                color: "#039551",
+                marginVertical: 15,
+                fontSize: 22,
+                fontWeight: "600",
+              }}
+            >
+              Photos
+            </Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={styles.photosection}
+            >
+              {productdata?.imagePaths.map((data, index) => (
+                <View key={index}>
+                  <Image
+                    source={{ uri: `data:image/jpeg;base64,${data.data}` }}
+                    style={{
+                      width: 150,
+                      height: 150,
+                      marginRight: 5,
+                      borderRadius: 20,
+                    }}
+                  />
+                </View>
+              ))}
+            </ScrollView>
+          </View>
         </View>
-      </View>
-      <View style={styles.section2}>
-        <Text style={styles.brandText}>{productdata.name}</Text>
-        <Text
-          style={{
-            color: "gray",
-            marginHorizontal: 10,
-            marginTop: 40,
-            textAlign: "justify",
-            fontSize: 14,
-          }}
-        >
-        {productdata.longDesc}
-          
-        </Text>
-
-        <View style={{marginHorizontal:10}}>
-          <Text style={{color:"#039551",marginVertical:15,fontSize:22,fontWeight:'600',}}>Photos</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.photosection}>
-            {productdata.imagePaths.map((data,index)=>(
-            <View key={index}>
-            <Image source={
-              {uri:`http://192.168.224.144:3000/products/${data.substring(17)}`}
-            } style={{width:150,height:150,marginRight:5,borderRadius:20}} />
-              </View>
-
-            ))}
-          
-          </ScrollView>
-        </View>
-      </View>
-
-      
-    </ScrollView>
-    <View style={styles.bottombar}>
-        <AddCartButton product={productdata}/>
+      </ScrollView>
+      <View style={styles.bottombar}>
+        <AddCartButton product={productdata} />
       </View>
     </>
   );
@@ -124,8 +179,8 @@ const styles = StyleSheet.create({
   },
   brandText: {
     fontSize: 30,
-    width: 165,
-    alignSelf: "flex-end",
+    zIndex:40,
+    alignSelf: "center",
 
     marginVertical: 10,
     color: "#039551",
@@ -141,8 +196,8 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     alignSelf: "flex-end",
   },
-  photosection:{
-    flexDirection:'row',
-   
-  }
+  photosection: {
+    flexDirection: "row",
+
+  },
 });

@@ -12,10 +12,11 @@ const HorizontalCard = ({navigation,data}) => {
             productdata:data,
         })
     }
+ 
   return (
     <Pressable style={styles.box} onPress={handleClick}>
         <View style={styles.productImage}>
-        <Image source={tulshiremove} style={{width:220,height:200,marginLeft:-40,marginTop:-40}}  />
+        <Image  source={{ uri: `data:image/jpeg;base64,${data.imagePaths[0].data}` }} style={{width:150,height:150,borderRadius:20,marginVertical:10,marginHorizontal:10}}  />
 
         </View>
         <View style={styles.mainSide}>
@@ -67,10 +68,10 @@ const styles = StyleSheet.create({
    productImage:{
    
     backgroundColor:'#a6e0c5',
-    height:'60%',
+    height:'100%',
     borderTopRightRadius:20,
     borderTopLeftRadius:20,
-    borderBottomRightRadius:50,
+    borderBottomRightRadius:20,
 
    },
    headText:{

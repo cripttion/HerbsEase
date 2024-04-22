@@ -18,6 +18,8 @@ import HerbAi from './screens/HerbAi/HerbAi';
 import CheckoutCart from './screens/CheckoutCart';
 import SearchedProduct from './screens/SearchedProduct';
 import WishList from './screens/WishList';
+import PlaceOrder from './screens/PlaceOrder';
+import MyOrder from './screens/MyOrder';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,15 +56,15 @@ function AppContent({navigation}) {
             ),
             headerShown: true,
           }}>
-          {!isLoggedIn ? (
+          {isLoggedIn ? (
             <>
-              <Stack.Screen name='Home' component={Home} options={{headerTitle:"Herb-Ease"}}/>
-              <Stack.Screen name='ProductDescription' component={ProductDescription} />
-              <Stack.Screen name='Cart' component={Cart} />
-              <Stack.Screen name='FilteredProducts' component={FilteredProduct} />
+                <Stack.Screen name='Home' component={Home} options={{headerTitle:"Herb-Ease"}}/>
               <Stack.Screen name='Profile' component={Profile} options={{
                 headerTitle:"",
               } }/>
+              <Stack.Screen name='ProductDescription' component={ProductDescription} />
+              <Stack.Screen name='Cart' component={Cart} />
+              <Stack.Screen name='FilteredProducts' component={FilteredProduct} />
                <Stack.Screen name='AI' component={HerbAi} options={{
                 headerTitle:"Fagu-AI",
               } }/>
@@ -74,6 +76,12 @@ function AppContent({navigation}) {
               } }/>
                <Stack.Screen name='SerachResults' component={SearchedProduct} options={{
                 headerTitle:"",
+              } }/>
+               <Stack.Screen name='PlaceOrder' component={PlaceOrder} options={{
+                headerTitle:"",
+              } }/>
+              <Stack.Screen name='MyOrder' component={MyOrder} options={{
+                headerTitle:"Order History",
               } }/>
             </>
           ) : (

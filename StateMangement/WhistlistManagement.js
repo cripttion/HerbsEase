@@ -12,6 +12,7 @@ export function WishlistManagement({ children }) {
   const addToWishlist = (product) => {
     setWishlist([...wishlist, product]);
     AsyncStorage.setItem('wishlist', JSON.stringify([...wishlist, product]));
+    
   };
 
   // Function to remove a product from the wishlist
@@ -47,7 +48,10 @@ export function WishlistManagement({ children }) {
     setCartList(updatedCartList);
     AsyncStorage.setItem("cartList", JSON.stringify(updatedCartList));
   };
-  
+  const clearCart = () => {
+    setCartList([]);
+    AsyncStorage.setItem('cartList', JSON.stringify([]));
+  };
 
   return (
     <WishlistContext.Provider
@@ -58,6 +62,7 @@ export function WishlistManagement({ children }) {
         cartList,
         addToCart,
         removeFromCart,
+        clearCart
       }}>
       {children}
     </WishlistContext.Provider>

@@ -19,8 +19,6 @@ const Register = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
   const [Otp, setOtp] = useState("");
   const [loadingRegister, setLoadingRegister] = useState(false);
   const [loadingVerify, setLoadingVerify] = useState(false);
@@ -30,7 +28,7 @@ const Register = ({ navigation }) => {
     try {
       setLoadingRegister(true);
       const response = await axios.post(
-        "http://192.168.224.144:8000/v1/generate-otp",
+        "https://herbease.onrender.com/user/generate-otp",
         {
           Email: email,
         }
@@ -47,14 +45,14 @@ const Register = ({ navigation }) => {
     try {
       setLoadingVerify(true);
       const response = await axios.post(
-        "http://192.168.224.144:8000/v1/create-user",
+        "https://herbease.onrender.com/user/create-user",
         {
-          Name: name,
+          
           Email: email,
-          Password: password,
-          Phone: phone,
-          Address: address,
-          OTP: Otp,
+          
+          phone: phone,
+          
+          otp: Otp,
         }
       );
       if (response.status === 201) {
@@ -83,7 +81,7 @@ const Register = ({ navigation }) => {
                   />
                 </View>
                 <View style={[t.mT20, t.flexCol]}>
-                  <TextInput
+                <TextInput
                     style={tw`border mt-2 border-gray-300 p-3 mx-2 rounded-md`}
                     placeholder="Name"
                     onChangeText={(newText) => setName(newText)}
@@ -101,18 +99,7 @@ const Register = ({ navigation }) => {
                     onChangeText={(newText) => setPhone(newText)}
                     defaultValue={phone}
                   />
-                  <TextInput
-                    style={tw`border mt-2 border-gray-300 p-3 mx-2 rounded-md`}
-                    placeholder="Password"
-                    onChangeText={(newText) => setPassword(newText)}
-                    defaultValue={password}
-                  />
-                  <TextInput
-                    style={tw`border mt-2 border-gray-300 p-3 mx-2 rounded-md`}
-                    placeholder="Address"
-                    onChangeText={(newText) => setAddress(newText)}
-                    defaultValue={address}
-                  />
+                  
                   <TouchableOpacity onPress={handleRegister}>
                     <View
                       style={[

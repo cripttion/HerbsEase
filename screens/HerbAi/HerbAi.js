@@ -17,7 +17,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
 import FileSelect from "../FileSelect";
 
-const HerbAi = () => {
+const HerbAi = ({navigation}) => {
   const [query, setQuery] = useState([]);
   const [textInput, setTextInput] = useState("");
   const [respon, setResponse] = useState([]);
@@ -90,7 +90,7 @@ const HerbAi = () => {
   const onCameraPress = () => {
     setModalVisible(true);
   };
-
+// console.log(respon.suggestion.productId);
   return (
     <>
       {loading && <ActivityIndicator size="large" color="#039551" />}
@@ -128,7 +128,15 @@ const HerbAi = () => {
                   style={styles.button}
                 >
                   <Text style={styles.text}>{respon&&respon[index]?.text}</Text>
+
                 </LinearGradient>
+                {respon&&respon[index]?.suggestion!=null&&<>
+                  <Pressable style={styles.suggestion} onPress={()=> navigation.navigate('SerachResults', { searchText:respon[index]?.suggestion.productId.name })}>
+                    <Text style={{textAlign:'center'}}>Checkout Related product</Text>
+                   
+                   
+                  </Pressable>
+                </>}
               </View>
             </View>
           ))}
@@ -267,4 +275,12 @@ const styles = StyleSheet.create({
     left: 50,
     right: 50,
   },
+  suggestion:{
+    marginTop:15,
+    backgroundColor:'white',
+    elevation:5,
+    borderRadius:40,
+    padding:5,
+    maxWidth:"auto",
+  }
 });

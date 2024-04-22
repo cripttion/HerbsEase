@@ -14,9 +14,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useWishlist } from "../StateMangement/WhistlistManagement";
-import CheckOutModel from "./components/CheckOutModel";
 
-const CheckoutCart = () => {
+const CheckoutCart = ({navigation}) => {
   const [cartData, setCartData] = useState([]);
   const{cartList,removeFromCart,addToCart} = useWishlist();
   const [modalVisible, setModalVisible] = useState(false);
@@ -39,14 +38,13 @@ const total = cartData.reduce((acc, item) => acc + (item.quantity * item.price),
       style={{ flex: 1, }}
     >
       {cartData.map((data, index) => (
-        <Pressable style={styles.box} key={index}>
+        <Pressable style={styles.box} key={index} onPress={()=>navigation.navigate('ProductDescription',{
+          productdata:data,
+      })}>
           <View style={styles.productImage}>
             <Image
-              source={{
-                uri: `https://herbease.onrender.com/products/${data.imagePaths[0].substring(
-                  17
-                )}`,
-              }}
+              source={{ uri: `data:image/jpeg;base64,${data.imagePaths[0].data}` }}
+           
               style={styles.image}
             />
           </View>
@@ -72,7 +70,7 @@ const total = cartData.reduce((acc, item) => acc + (item.quantity * item.price),
         <View style={styles.main}>
           <Text style={{ fontWeight: "bold", fontSize: 18 }}>₹ {total}</Text>
 
-          <Pressable onPress={()=>setModalVisible(true)}>
+          <Pressable onPress={()=>navigation.navigate('PlaceOrder',{pdata:cartData, price:total})}>
             <LinearGradient
               colors={["#039551", "#039551"]}
               style={styles.button}
@@ -83,29 +81,7 @@ const total = cartData.reduce((acc, item) => acc + (item.quantity * item.price),
           </Pressable>
         </View>
       </View>
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(false);
-          }}
-        >
-          <View style={styles.modalView}>
-            <Pressable
-              onPress={() => setModalVisible(false)}
-              style={{ flexDirection: "row-reverse" }}
-            >
-              <Ionicons name="close-outline" size={28} color="black" />
-            </Pressable>
-            <View>
-              <CheckOutModel  />
-            </View>
-          </View>
-        </Modal>
-      </View>
+      {/*  */}
  </>
   );
 };
@@ -207,16 +183,5 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     gap: 10,
   },
-  centeredView:{
-   
-     
-     
-  },
-  modalView: {
-    padding: 10,
-    backgroundColor:'#fff',
-    elevation:5,
-    flex:1,
-
-  },
+ 
 });

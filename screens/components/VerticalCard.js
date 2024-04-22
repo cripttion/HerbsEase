@@ -44,7 +44,11 @@ const VerticalCard = ({navigation,data}) => {
       
     </View>
     <View style={styles.prodcutImage}>
-        <Image source={tulshiremove} style={{width:220,height:200,marginRight:-60,marginTop:-40}}  />
+        <Image source={{
+                      uri: `https://herbease.onrender.com/Element/${data?.element?.imagePaths[0].substring(
+                        16
+                      )}`,
+                    }} style={{width:220,height:200,marginRight:-60,marginTop:-40,zIndex:20}}  />
          </View>
     </Pressable>
   );
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
    box:{
     
     width:200,
-  
+   zIndex:10,
     marginRight:10,
     
    },
@@ -82,7 +86,8 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         fontSize:22,
         padding:10,
-        marginTop:60
+        marginTop:60,
+        zIndex:20,
        
     },
     button:{
@@ -93,6 +98,6 @@ const styles = StyleSheet.create({
     prodcutImage:{
         position:'absolute',
         right:0,
-        zIndex:1,
+        zIndex:10,
     }
 });

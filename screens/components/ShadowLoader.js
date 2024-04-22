@@ -39,6 +39,9 @@ import Animated, {
      
       <Animated.View style={[styles.secondBox, animatedStyle]} />
       <Animated.View style={[styles.secondBox, animatedStyle]} />
+      <Animated.View style={[styles.secondBox, animatedStyle]} />
+      <Animated.View style={[styles.secondBox, animatedStyle]} />
+      
     
     </>
   );
