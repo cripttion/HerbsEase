@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import React, { useState } from 'react'
 import Checkbox from 'expo-checkbox';
-// import RNUpiPayment from 'react-native-upi-payment';
+import RNUpiPayment from 'react-native-upi-payment';
 import axios from 'axios';
 import SucessModal from './components/SuccessModal';
 import { useWishlist } from '../StateMangement/WhistlistManagement';
