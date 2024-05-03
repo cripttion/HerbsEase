@@ -12,8 +12,8 @@ HerbEase is an end-to-end online herb selling platform with advanced features su
 
 ## Screenshots
 
-![imagehome](https://github.com/cripttion/HerbsEase/assets/77504107/18ed268c-d916-4571-ad7e-f97ad9c4c723)
-![imagewishlist](https://github.com/cripttion/HerbsEase/assets/77504107/2f371238-2484-4c79-bcf6-5bae14f5172e)
+![imagehome](https://github.com/cripttion/HerbsEase/assets/77504107/18ed268c-d916-4571-ad7e-f97ad9c4c723)  ![imagewishlist](https://github.com/cripttion/HerbsEase/assets/77504107/2f371238-2484-4c79-bcf6-5bae14f5172e)
+
 ![imagepayment](https://github.com/cripttion/HerbsEase/assets/77504107/e5c01ecd-8637-4920-971f-42f3ddf06572)
 
 ![imagecart](https://github.com/cripttion/HerbsEase/assets/77504107/b62e8932-af6c-4679-9d86-fe416bfdc56d)
@@ -32,12 +32,13 @@ To run HerbEase locally, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/your-username/HerbEase.git`
 2. Install dependencies: `npm install`
-3. Start the server: `npm start`
-
+3. Start the server: `npm run start`
+   
+**NOTE** this project made with EXPO CLI either user Expo app to see changes or Android studio virtual Device.
 ## Usage
 
-- Run the application: `npm start`
-- Access the application in your browser at `http://localhost:3000`
+- Run the application: `npm run start`
+- Create the QR to scan by expo App or press **a** to open in android studion virtual device (make sure to run the virutal device).
 
 ## Contributing
 
@@ -45,8 +46,6 @@ Contributions are welcome! If you have any ideas, suggestions, or improvements, 
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](/LICENSE) file for details.
-
+This project is licensed under the Cripttion&Tanu Kesharwani.
 ---
 
-**Note:** Replace `/screenshots/` with the actual path to your screenshots folder. Ensure that the screenshots are named appropriately (e.g., `home.png`, `payment.png`, etc.) and are included in your repository.
