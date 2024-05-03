@@ -12,14 +12,15 @@ HerbEase is an end-to-end online herb selling platform with advanced features su
 
 ## Screenshots
 <img src="https://github.com/cripttion/HerbsEase/assets/77504107/18ed268c-d916-4571-ad7e-f97ad9c4c723" alt="Home Page" width="300" height="400">
+<img src="https://github.com/cripttion/HerbsEase/assets/77504107/2f371238-2484-4c79-bcf6-5bae14f5172e" alt="Home Page" width="300" height="400">
+<img src="https://github.com/cripttion/HerbsEase/assets/77504107/e5c01ecd-8637-4920-971f-42f3ddf06572" alt="Home Page" width="300" height="400">
+<img src="https://github.com/cripttion/HerbsEase/assets/77504107/b62e8932-af6c-4679-9d86-fe416bfdc56d" alt="Home Page" width="300" height="400">
 
-![imagehome](https://github.com/cripttion/HerbsEase/assets/77504107/18ed268c-d916-4571-ad7e-f97ad9c4c723)  ![imagewishlist](https://github.com/cripttion/HerbsEase/assets/77504107/2f371238-2484-4c79-bcf6-5bae14f5172e)
+<img src="https://github.com/cripttion/HerbsEase/assets/77504107/4178a789-a418-4e9c-9327-4eef2ef43b2d" alt="Home Page" width="300" height="400">
 
-![imagepayment](https://github.com/cripttion/HerbsEase/assets/77504107/e5c01ecd-8637-4920-971f-42f3ddf06572)
 
-![imagecart](https://github.com/cripttion/HerbsEase/assets/77504107/b62e8932-af6c-4679-9d86-fe416bfdc56d)
 
-![imageai](https://github.com/cripttion/HerbsEase/assets/77504107/4178a789-a418-4e9c-9327-4eef2ef43b2d)
+
 
 ## Tech Stack
 
