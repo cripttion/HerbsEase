@@ -11,7 +11,7 @@ HerbEase is an end-to-end online herb selling platform with advanced features su
 - **Payment Gateway**: Integrated with UPI payment system for easy and secure transactions.
 
 ## Screenshots
-<img src="https://github.com/cripttion/HerbsEase/assets/77504107/18ed268c-d916-4571-ad7e-f97ad9c4c723" alt="Home Page" width="300" height="200">
+<img src="https://github.com/cripttion/HerbsEase/assets/77504107/18ed268c-d916-4571-ad7e-f97ad9c4c723" alt="Home Page" width="300" height="400">
 
 ![imagehome](https://github.com/cripttion/HerbsEase/assets/77504107/18ed268c-d916-4571-ad7e-f97ad9c4c723)  ![imagewishlist](https://github.com/cripttion/HerbsEase/assets/77504107/2f371238-2484-4c79-bcf6-5bae14f5172e)
 
